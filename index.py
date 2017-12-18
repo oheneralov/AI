@@ -10,10 +10,10 @@ pairs = [
     ],
 	[
         r"What is your name(.*)",
-        ['My name is Robot35908', 'Robot35908'],
+        ['My name is Olha', 'Olha'],
     ], 
 	[
-        r"Alex|Bob|Clark|David|Edward|James|John|Robert|Michael|William|Richard|Charles|Joseph|Thomas|Christopher|Daniel|Paul|Mark|Donald",
+        r"George|Steven|Brian|Anthony|Kevin|Alex|Bob|Clark|David|Edward|James|John|Robert|Michael|William|Richard|Charles|Joseph|Thomas|Christopher|Daniel|Paul|Mark|Donald",
         ['hello', 'Hi'],
     ], 
 	[
@@ -31,6 +31,10 @@ pairs = [
 	[
         r'(.*)How are you?(.*)',
         ['I am fine thanks. And you?'],
+    ],
+	[
+        r'(.*)fine|well|nice|cool|good(.*)',
+        ['So any other questtion s?', 'Would you like to ask me something else?'],
     ],
 	[
         r'(.*)Really?(.*)',
@@ -73,10 +77,22 @@ pairs = [
     ],
 ]
 
+class Olha(Chat):
+    def start(self, quit="quit"):
+        user_input = ""
+        while user_input != quit:
+            user_input = quit
+            try: user_input = input(">")
+            except EOFError:
+                print(user_input)
+            if user_input:
+                while user_input[-1] in "!.": user_input = user_input[:-1]
+                print(self.respond(user_input))
+
 def hugot_bot():
     print("Hi what's your name?")
-    chat = Chat(pairs, reflections)
-    chat.converse()
+    chat = Olha(pairs, reflections)
+    chat.start()
 
 if __name__ == "__main__":
     hugot_bot()
