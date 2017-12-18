@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-
-# NOTE: this example requires PyAudio because it uses the Microphone class
+# NOTE: it requires PyAudio because it uses the Microphone class
+# Natural Language Toolkit: Chatbot Utilities
+#
+# Copyright (C) 2017-2019 Oleksandr Generalov
+# Authors: Oleksandr Generalov <oheneralov@gmail.com>
 
 import speech_recognition as sr
 from gtts import gTTS
 from nltk.chat.util import Chat, reflections
-import win32com.client as wincl
+import win32com.client as wincl #pypiwin32
 
 pairs = [
     [
@@ -105,7 +108,7 @@ class Speech2Text():
 
 
 class Olha(Chat):
-    def start(self, quit, speech):
+    def start(self, quit, speech, speak):
         user_input = ""
         while user_input != quit:
             user_input = quit
@@ -116,15 +119,15 @@ class Olha(Chat):
                 while user_input[-1] in "!.": user_input = user_input[:-1]
                 result = self.respond(user_input)
                 print(result)
-                speak.Speak(text = result)
+                speak.Speak(result)
 
 def Olhabot():
     speak = wincl.Dispatch("SAPI.SpVoice")
-    speak.Speak(text='Hi, what is your name?', lang='en')
+    speak.Speak('Hi, what is your name?')
     
     speech = Speech2Text()
     chat = Olha(pairs, reflections)
-    chat.start('quit', speech)
+    chat.start('quit', speech, speak)
 
 if __name__ == "__main__":
     Olhabot()
