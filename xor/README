@@ -1,0 +1,11 @@
+It is the implementation of xor problem
+To achieve a better result with binary classifier, use cross entropy with a sigmoid
+loss = tf.nn.sigmoid_cross_entropy_with_logits(logits=y_estimated, labels=Y)
+
+A native implementation of the loss function
+n_instances = X.get_shape().as_list()[0]
+loss = tf.reduce_sum(tf.pow(y_estimated - Y, 2))/ n_instances
+
+In case of a problem with gradient (exploding / vanishing gradient) do gradient clipping
+n_instances = X.get_shape().as_list()[0]
+loss = tf.reduce_sum(tf.pow(tf.clip_by_value(y_estimated,1e-10,1.0) - Y,2))/(n_instances)
